@@ -10,7 +10,7 @@ docker-build-master:
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker build --pull -t "$NODE_CI_REGISTRY_IMAGE" .
+    - docker build --pull -t "$NODE_CI_REGISTRY_IMAGE" ./nodejs
     - docker push "$NODE_CI_REGISTRY_IMAGE"
   only:
     - master
