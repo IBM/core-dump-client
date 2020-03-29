@@ -1,0 +1,17 @@
+apiVersion : v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "nodejs.fullname" . }}
+  annotations:
+    ibm.io/auto-create-bucket: "false"
+    ibm.io/auto-delete-bucket: "false"
+    ibm.io/bucket: {{ .Values.pvc.bucketName }} 
+    ibm.io/secret-name: {{ .Values.pvc.bucketSecretName }}
+    
+spec:
+  resources:
+    requests:
+      storage: 50Gi
+  accessModes:
+    - ReadOnly
+  storageClassName: {{ .Values.pvc.bucketStorageClass }} 
