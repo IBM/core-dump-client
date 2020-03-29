@@ -15,6 +15,7 @@ The bucket name and secret should align with the configuration you used in ibm-c
 
 Install the helm chart
 ```
+$ cd deploy
 $ helm install node-core-tool . --namespace ibm-observe
 ```
 
@@ -22,19 +23,20 @@ $ helm install node-core-tool . --namespace ibm-observe
 
 Log into the pod
 ```
-$ kubectl exec -it node-core-dump -- /bin/sh
+$ kubectl exec -it coretools-nodejs-core-dump-xxxxx=xxxx -- /bin/bash
 ```
 
 List the core dumps
 ```
-$ ls /node/core
+$ ls /cores
 ```
 
-Untar one of the dumps
+Unzip one of the dumps
 ```
-$ tar xvzf XX-core.tar.gz -C ~/
+$ cp xx.gz .
+$ gunzip xx.gz
 ```
 
 ```
-$ llnode /usr/local/bin/node -c ~/xx.core
+$ llnode /usr/local/bin/node -c xx.core
 ```

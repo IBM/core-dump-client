@@ -13,5 +13,5 @@ spec:
     requests:
       storage: 50Gi
   accessModes:
-    - ReadOnly
+    - ReadOnlyMany
   storageClassName: {{ .Values.pvc.bucketStorageClass }} 

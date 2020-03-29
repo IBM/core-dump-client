@@ -2,7 +2,7 @@ FROM node:12.16-buster
 
 RUN apt-get update
 
-RUN apt-get install -y lsb-release software-properties-common
+RUN apt-get install -y lsb-release software-properties-common vim
 
 RUN wget https://apt.llvm.org/llvm.sh
 
