@@ -16,7 +16,7 @@ The bucket name and secret should align with the configuration you used in ibm-c
 Install the helm chart
 ```
 $ cd deploy
-$ helm install node-core-tool . --namespace ibm-observe
+$ helm install coretools . --namespace ibm-observe
 ```
 
 ## usage 
