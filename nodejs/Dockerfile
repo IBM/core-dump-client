@@ -1,4 +1,4 @@
-FROM node:12.16-buster
+FROM node:16.9-buster
 
 RUN apt-get update
 
@@ -14,6 +14,20 @@ ENV PATH="/usr/lib/llvm-9/bin:${PATH}"
 
 RUN npm install -g llnode --unsafe-perm
 
+WORKDIR /usr/bin
+
+RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc
+
+RUN chmod +x mc
+
+WORKDIR /debug 
+RUN chown -R node:node /debug
+RUN chmod 755 /debug
+
 USER node
 
 RUN echo "plugin load /usr/local/lib/node_modules/llnode/llnode.so" > ~/.lldbinit
+
+COPY --chown=node:node init.sh init.sh
+
+CMD [ "./init.sh" ]
