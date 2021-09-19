@@ -24,10 +24,12 @@ WORKDIR /debug
 RUN chown -R node:node /debug
 RUN chmod 755 /debug
 
+COPY --chown=node:node init.sh init.sh
+
+RUN chmod +x init.sh
+
 USER node
 
 RUN echo "plugin load /usr/local/lib/node_modules/llnode/llnode.so" > ~/.lldbinit
-
-COPY --chown=node:node init.sh init.sh
 
 CMD [ "./init.sh" ]
