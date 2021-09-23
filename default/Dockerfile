@@ -19,7 +19,7 @@ RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc
 RUN chmod +x mc
 
 WORKDIR /debug 
-RUN chown -R node:node /debug
+RUN chown -R debugger:debugger /debug
 RUN chmod 755 /debug
 
 COPY --chown=debugger:debugger init.sh init.sh
