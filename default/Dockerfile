@@ -2,7 +2,7 @@ FROM debian:buster-20210816
 
 RUN apt-get update
 
-RUN apt-get install -y lsb-release software-properties-common vim wget
+RUN apt-get install -y lsb-release software-properties-common vim wget gnupg2
 
 RUN wget https://apt.llvm.org/llvm.sh
 
