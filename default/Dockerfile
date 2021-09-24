@@ -2,7 +2,7 @@ FROM debian:buster-20210816
 
 RUN apt-get update
 
-RUN apt-get install -y lsb-release software-properties-common vim wget gnupg2
+RUN apt-get install -y lsb-release software-properties-common vim wget gnupg2 unzip
 
 RUN wget https://apt.llvm.org/llvm.sh
 
@@ -18,7 +18,7 @@ RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc
 
 RUN chmod +x mc
 
-RUN useradd debugger
+RUN useradd -m debugger
 
 WORKDIR /debug 
 RUN chown -R debugger:debugger /debug
