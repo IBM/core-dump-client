@@ -3,43 +3,41 @@
 program_name=$0
 
 function usage {
-    echo "Usage: $program_name [corezipfilename] [runtime]"
+    echo "Usage: $program_name [corezipfilename] [runtime] [exename] [image]"
     echo "  corezipfilename - the name of the zip file containing the core dump"
     echo "  runtime - the runtime type - nodejs rust currently supported"
-    echo "  Example: $program_name file.zip nodejs"
+    echo "  exename - the name of the executable to be debugged"
+    echo "  image - image of the crashed container"
+    echo "  namespace - namespace of core dump handler"
+    echo "  Example: $program_name file.zip nodejs node image/crashedapp:latest observe"
     exit 1
 }
 
-if [ $# == 0 ] | [ $# -gt 2 ]; then
+if [ $# -ne 5 ]; then
  usage
 fi
 
-rm -fr 36c0d272-3295-4474-a16e-00885ba04fed-dump-1631477784-crashing-app-848dc79df4-srqkv-node-8-4
+
+if [ $2 == "nodejs" ]; 
+then
+  img_debug="quay.io/icdh/nodejs@sha256:ba165eabdfd63a668f41a47f9ffcc5c7a61ed618bfd0cb1dc65e27cc64308822"
+else 
+  img_debug="quay.io/icdh/default"
+fi
 
 filename=$(basename -- "$1")
 dirname="${filename%.*}"
+core_location=$dirname/$dirname.core
+cmd='cp $(which '${3}' | head -n 1) /shared; sleep infinity'
 
-unzip -qq $1 -d $dirname
-
-exe=$(jq -r '.exe' $dirname/$dirname-dump-info.json)
-img=$(jq -r '.repoTags[0]' $dirname/$dirname-image-info.json)
-# img=quay.io/icdh/example-crashing-nodejs-app
 # will need a unique id
 uuid=$(uuidgen)
 
-nodert=$(kubectl run -it temp-cdc-$uuid --image=$img --restart=Never --rm -- which node | head -n 1)
-
-mountedexe=/coreinfo$nodert
-
-core_container_mount=$(dirname $nodert)
-
-debug_container_mount=$(dirname $mountedexe)
-
-cat <<EOF | kubectl apply -f -
+cat <<EOF | kubectl apply -n $5 -f -
 apiVersion: v1
 kind: Pod
 metadata:
-  name: node-debugger-$uuid
+  name: debugger-$uuid
 spec:
 
   restartPolicy: Never
@@ -49,32 +47,44 @@ spec:
     emptyDir: {}
 
   containers:
-
-  - name: core-container
-    image: $img
-    command: ["/bin/sh"]
-    args: ["-c", "cp ${nodert} /shared; sleep infinity"]
+  - name: debug-container
+    image: $img_debug
     volumeMounts:
     - name: shared-data
       mountPath: /shared
-
-  - name: debug-container
-    image: quay.io/icdh/nodejs@sha256:ba165eabdfd63a668f41a47f9ffcc5c7a61ed618bfd0cb1dc65e27cc64308822
-    volumeMounts:
-    - name: shared-data
-      mountPath: ${debug_container_mount}
     command: ["./init.sh"]
     env:
       - name: S3_ACCESS_KEY
-        value: ${S3_ACCESS_KEY}
+        valueFrom:
+          secretKeyRef:
+            name: s3config
+            key: s3AccessKey
       - name: S3_SECRET
-        value: ${S3_SECRET}
+        valueFrom:
+          secretKeyRef:
+            name: s3config
+            key: s3Secret
       - name: S3_BUCKET_NAME
-        value: ${S3_BUCKET_NAME}
+        valueFrom:
+          secretKeyRef:
+            name: s3config
+            key: s3BucketName
       - name: S3_REGION
-        value: ${S3_REGION}
+        valueFrom:
+          secretKeyRef:
+            name: s3config
+            key: s3Region
       - name: CORE_FILE
         value: ${1}
       - name: EXE_LOCATION
-        value: ${mountedexe}
+        value: /shared/$3
+      - name: CORE_LOCATION
+        value: $core_location
+  - name: core-container
+    image: $4
+    command: ["/bin/sh"]
+    args: ["-c", $cmd]
+    volumeMounts:
+    - name: shared-data
+      mountPath: /shared
 EOF
