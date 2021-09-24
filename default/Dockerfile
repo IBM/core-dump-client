@@ -1,16 +1,6 @@
-FROM debian:buster-20210816
+FROM registry.access.redhat.com/ubi8/ubi
 
-RUN apt-get update
-
-RUN apt-get install -y lsb-release software-properties-common vim wget gnupg2 unzip
-
-RUN wget https://apt.llvm.org/llvm.sh
-
-RUN chmod +x llvm.sh
-
-RUN ./llvm.sh 9
-
-ENV PATH="/usr/lib/llvm-9/bin:${PATH}"
+RUN yum install -y --disableplugin=subscription-manager vim wget llvm-toolset xz git llvm-devel python39 make
 
 WORKDIR /usr/bin
 

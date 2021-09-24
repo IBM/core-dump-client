@@ -1,18 +1,22 @@
-FROM node:16.9-buster
+FROM registry.access.redhat.com/ubi8/ubi
 
-RUN apt-get update
+RUN yum install -y --disableplugin=subscription-manager vim wget llvm-toolset xz git
 
-RUN apt-get install -y lsb-release software-properties-common vim
+RUN wget https://nodejs.org/dist/v14.17.6/node-v14.17.6-linux-x64.tar.xz 
 
-RUN wget https://apt.llvm.org/llvm.sh
+RUN tar -xf node-v14.17.6-linux-x64.tar.xz 
 
-RUN chmod +x llvm.sh
+RUN cp -fr node-v14.17.6-linux-x64/* /usr  
 
-RUN ./llvm.sh 9
+RUN yum install -y --disableplugin=subscription-manager llvm-devel
 
-ENV PATH="/usr/lib/llvm-9/bin:${PATH}"
+RUN yum install -y --disableplugin=subscription-manager python39
 
-RUN npm install -g llnode --unsafe-perm
+RUN yum install -y --disableplugin=subscription-manager make
+
+RUN git clone --branch use-llvm-project-monorepo https://github.com/trxcllnt/llnode.git /usr/local/lib/llnode \
+ && npm install --global --unsafe-perm --no-audit --no-fund /usr/local/lib/llnode \
+ && which -a llnode
 
 WORKDIR /usr/bin
 
@@ -20,16 +24,18 @@ RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc
 
 RUN chmod +x mc
 
+RUN useradd -m debugger
+
 WORKDIR /debug 
-RUN chown -R node:node /debug
+RUN chown -R debugger:debugger /debug
 RUN chmod 755 /debug
 
-COPY --chown=node:node init.sh init.sh
-COPY --chown=node:node rundebug.sh rundebug.sh
+COPY --chown=debugger:debugger init.sh init.sh
+COPY --chown=debugger:debugger rundebug.sh rundebug.sh
 RUN chmod +x init.sh
 
-USER node
+USER debugger
 
-RUN echo "plugin load /usr/local/lib/node_modules/llnode/llnode.so" > ~/.lldbinit
+RUN echo "plugin load /usr/local/lib/llnode/llnode.so" > ~/.lldbinit
 
 CMD [ "./init.sh" ]
