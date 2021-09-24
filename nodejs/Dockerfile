@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi8/ubi
 
-RUN yum install -y --disableplugin=subscription-manager vim wget llvm-toolset xz git llvm-devel python39 make
+RUN yum install -y --disableplugin=subscription-manager vim wget llvm-toolset xz git llvm-devel python39 make unzip
 
 RUN wget https://nodejs.org/dist/v14.17.6/node-v14.17.6-linux-x64.tar.xz 
 
