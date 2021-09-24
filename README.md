@@ -23,7 +23,7 @@ node-debugger-e6fd2727-52d6-4657-9eab-8c95463e178b created
 
 Login to the debug container
 ```
-kubectl exec -it node-debugger-e6fd2727-52d6-4657-9eab-8c95463e178b -c debug-container -- /bin/bash 
+kubectl exec -it node-debugger-e6fd2727-52d6-4657-9eab-8c95463e178b -- /bin/bash 
 ```
 
 In the container start a lldb session with the environment variables `$EXE_LOCATION` and `$CORE_LOCATION` as options 
@@ -35,7 +35,7 @@ lldb $EXE_LOCATION -c $CORE_LOCATION
 ## build status
 
 ### Default
-**NA**
+[![Docker Repository on Quay](https://quay.io/repository/icdh/default/status "Docker Repository on Quay")](https://quay.io/repository/icdh/default)
 ### Node.Js
 [![Docker Repository on Quay](https://quay.io/repository/icdh/nodejs/status "Docker Repository on Quay")](https://quay.io/repository/icdh/nodejs)
 ### Java
