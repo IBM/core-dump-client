@@ -25,7 +25,7 @@ RUN chown -R debugger:debugger /debug
 RUN chmod 755 /debug
 
 COPY --chown=debugger:debugger init.sh init.sh
-
+COPY --chown=debugger:debugger rundebug.sh rundebug.sh
 RUN chmod +x init.sh
 
 USER debugger

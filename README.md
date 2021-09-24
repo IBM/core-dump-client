@@ -18,19 +18,16 @@ Create a debug environment with
 e.g. 
 ```
 ./cdc.sh 36c0d272-3295-4474-a16e-00885ba04fed-dump-1631477784-crashing-app-848dc79df4-srqkv-node-8-4.zip nodejs node quay.io/number9/example-crashing-nodejs-app
-node-debugger-e6fd2727-52d6-4657-9eab-8c95463e178b created
 ```
 
-Login to the debug container
-```
-kubectl exec -it node-debugger-e6fd2727-52d6-4657-9eab-8c95463e178b -- /bin/bash 
-```
+This will log you into a running container with lldb tools and core file info available to you. 
 
-In the container start a lldb session with the environment variables `$EXE_LOCATION` and `$CORE_LOCATION` as options 
+To start a debug session in the environment run`rundebug.sh` command.
 
 ```
-lldb $EXE_LOCATION -c $CORE_LOCATION
+./rundebug
 ```
+To inspect the metadata that was saved with crash `ls` will list the folder container your core file and the metadata json.
 
 ## build status
 

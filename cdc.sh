@@ -33,7 +33,7 @@ cmd='cp $(which '${3}' | head -n 1) /shared; sleep infinity'
 # will need a unique id
 uuid=$(uuidgen)
 
-cat <<EOF | kubectl apply -n $5 -f -
+podid=$(cat <<EOF | kubectl apply -n $5 --output=jsonpath={.metadata.name} -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -88,3 +88,13 @@ spec:
     - name: shared-data
       mountPath: /shared
 EOF
+)
+
+until kubectl exec -it $podid -n $5 -- /bin/bash
+do
+    echo "connection failed trying again in 3 secs..."
+    sleep 3
+done
+
+kubectl delete pod $podid -n $5
+

@@ -25,7 +25,7 @@ RUN chown -R node:node /debug
 RUN chmod 755 /debug
 
 COPY --chown=node:node init.sh init.sh
-
+COPY --chown=node:node rundebug.sh rundebug.sh
 RUN chmod +x init.sh
 
 USER node
