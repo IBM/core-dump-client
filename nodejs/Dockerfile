@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi8/ubi
 
-RUN yum install -y --disableplugin=subscription-manager vim wget llvm-toolset xz git
+RUN yum install -y --disableplugin=subscription-manager vim wget llvm-toolset xz git llvm-devel python39 make
 
 RUN wget https://nodejs.org/dist/v14.17.6/node-v14.17.6-linux-x64.tar.xz 
 
@@ -8,15 +8,8 @@ RUN tar -xf node-v14.17.6-linux-x64.tar.xz
 
 RUN cp -fr node-v14.17.6-linux-x64/* /usr  
 
-RUN yum install -y --disableplugin=subscription-manager llvm-devel
-
-RUN yum install -y --disableplugin=subscription-manager python39
-
-RUN yum install -y --disableplugin=subscription-manager make
-
 RUN git clone --branch use-llvm-project-monorepo https://github.com/trxcllnt/llnode.git /usr/local/lib/llnode \
- && npm install --global --unsafe-perm --no-audit --no-fund /usr/local/lib/llnode \
- && which -a llnode
+ && npm install --global --unsafe-perm --no-audit --no-fund /usr/local/lib/llnode 
 
 WORKDIR /usr/bin
 
