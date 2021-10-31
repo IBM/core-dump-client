@@ -3,6 +3,9 @@
 Container Definitions for debugging core dumps using the core-dump-client.
 See https://github.com/IBM/core-dump-handler/tree/main/core-dump-client
 
+### CLI Component Layout
+![Client Component Diagram](assets/client_topology.png)
+
 ## build status
 
 ### Default
