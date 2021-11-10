@@ -1,0 +1,17 @@
+name: Validate
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Rustfmt
+      run: cargo clippy --manifest-path=core-dump-client/Cargo.toml
+    - name: Run Rustclippy
+      run: cargo fmt --manifest-path=core-dump-client/Cargo.toml
+    - name: Build
+      run: cargo build --manifest-path=core-dump-client/Cargo.toml --verbose
