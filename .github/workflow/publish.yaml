@@ -20,15 +20,15 @@ jobs:
         include:
           - name: linux
             os: ubuntu-latest
-            artifact_name: target/release/cdcli
+            artifact_name: core-dump-client/target/release/cdcli
             asset_name: cdcli-linux
           - name: windows
             os: windows-latest
-            artifact_name: target/release/cdcli.exe
+            artifact_name: core-dump-client/target/release/cdcli.exe
             asset_name: cdcli-windows
           - name: macos
             os: macos-latest
-            artifact_name: target/release/cdcli
+            artifact_name: core-dump-client/target/release/cdcli
             asset_name: cdcli-macos
 
     steps:
@@ -40,7 +40,7 @@ jobs:
         toolchain: stable
 
     - name: Build
-      run: cargo build --release --locked
+      run: cargo build --manifest-path=core-dump-client/Cargo.toml --release --locked
 
     - name: Upload binaries to release
       uses: actions/upload-artifact@v2
