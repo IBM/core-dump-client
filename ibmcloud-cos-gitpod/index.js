@@ -13,8 +13,7 @@
  * See: https://github.com/knative-sandbox/kn-plugin-func/blob/main/docs/guides/nodejs.md#the-context-object
  */
 function handle(context) {
-  context.log.info(JSON.stringify(context, null, 2));
-
+  console.log(JSON.stringify(context, null, 2))
   // If the request is an HTTP POST, the context will contain the request body
   if (context.method === 'POST') {
     return {
