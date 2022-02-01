@@ -45,3 +45,8 @@ npm test
 ```
 curl -H 'Content-Type: application/json' -d @body.json http://localhost:8080/
 ```
+
+create a core dump 
+```
+kubectl run -i -t segfaulter --image=quay.io/icdh/segfaulter --restart=Never -l info.coredump.owner=no9,info.coredump.repo=segfaulter
+```

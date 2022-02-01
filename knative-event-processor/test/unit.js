@@ -17,7 +17,7 @@ test('Unit: handles an HTTP POST', t => {
   t.plan(1);
   // Invoke the function, which should complete without error.
   const result = func({ ...fixture, method: 'POST', body: { name: 'tiger' } });
-  t.deepEqual(result, { body: { name: 'tiger' } });
+  t.deepEqual(result, { invaliddocument: [ { instancePath: '', schemaPath: '#/required', keyword: 'required', params: { missingProperty: 'bucket' }, message: 'must have required property \'bucket\'' } ] });
   t.end();
 });
 

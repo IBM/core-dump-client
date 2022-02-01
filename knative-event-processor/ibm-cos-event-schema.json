@@ -1,0 +1,201 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "bucket": "core-storage",
+            "endpoint": "",
+            "key": "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip",
+            "notification": {
+                "bucket_name": "core-storage",
+                "content_type": "application/octet-stream",
+                "event_type": "Object:Write",
+                "format": "2.0",
+                "object_etag": "f68a47ca5da37992f024695d1fdf38fb",
+                "object_length": "28336",
+                "object_name": "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip",
+                "request_id": "8a1186ad-c2fe-4830-b98f-c302d7caca0a",
+                "request_time": "2022-01-31T19:32:59.395Z"
+            },
+            "operation": "Object:Write"
+        }
+    ],
+    "required": [
+        "bucket",
+        "endpoint",
+        "key",
+        "notification",
+        "operation"
+    ],
+    "properties": {
+        "bucket": {
+            "$id": "#/properties/bucket",
+            "type": "string",
+            "title": "The bucket schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "core-storage"
+            ]
+        },
+        "endpoint": {
+            "$id": "#/properties/endpoint",
+            "type": "string",
+            "title": "The endpoint schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                ""
+            ]
+        },
+        "key": {
+            "$id": "#/properties/key",
+            "type": "string",
+            "title": "The key schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip"
+            ]
+        },
+        "notification": {
+            "$id": "#/properties/notification",
+            "type": "object",
+            "title": "The notification schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "bucket_name": "core-storage",
+                    "content_type": "application/octet-stream",
+                    "event_type": "Object:Write",
+                    "format": "2.0",
+                    "object_etag": "f68a47ca5da37992f024695d1fdf38fb",
+                    "object_length": "28336",
+                    "object_name": "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip",
+                    "request_id": "8a1186ad-c2fe-4830-b98f-c302d7caca0a",
+                    "request_time": "2022-01-31T19:32:59.395Z"
+                }
+            ],
+            "required": [
+                "bucket_name",
+                "content_type",
+                "event_type",
+                "format",
+                "object_etag",
+                "object_length",
+                "object_name",
+                "request_id",
+                "request_time"
+            ],
+            "properties": {
+                "bucket_name": {
+                    "$id": "#/properties/notification/properties/bucket_name",
+                    "type": "string",
+                    "title": "The bucket_name schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "core-storage"
+                    ]
+                },
+                "content_type": {
+                    "$id": "#/properties/notification/properties/content_type",
+                    "type": "string",
+                    "title": "The content_type schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "application/octet-stream"
+                    ]
+                },
+                "event_type": {
+                    "$id": "#/properties/notification/properties/event_type",
+                    "type": "string",
+                    "title": "The event_type schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Object:Write"
+                    ]
+                },
+                "format": {
+                    "$id": "#/properties/notification/properties/format",
+                    "type": "string",
+                    "title": "The format schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2.0"
+                    ]
+                },
+                "object_etag": {
+                    "$id": "#/properties/notification/properties/object_etag",
+                    "type": "string",
+                    "title": "The object_etag schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "f68a47ca5da37992f024695d1fdf38fb"
+                    ]
+                },
+                "object_length": {
+                    "$id": "#/properties/notification/properties/object_length",
+                    "type": "string",
+                    "title": "The object_length schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "28336"
+                    ]
+                },
+                "object_name": {
+                    "$id": "#/properties/notification/properties/object_name",
+                    "type": "string",
+                    "title": "The object_name schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip"
+                    ]
+                },
+                "request_id": {
+                    "$id": "#/properties/notification/properties/request_id",
+                    "type": "string",
+                    "title": "The request_id schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "8a1186ad-c2fe-4830-b98f-c302d7caca0a"
+                    ]
+                },
+                "request_time": {
+                    "$id": "#/properties/notification/properties/request_time",
+                    "type": "string",
+                    "title": "The request_time schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2022-01-31T19:32:59.395Z"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "operation": {
+            "$id": "#/properties/operation",
+            "type": "string",
+            "title": "The operation schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Object:Write"
+            ]
+        }
+    },
+    "additionalProperties": true
+}
