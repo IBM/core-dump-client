@@ -102,8 +102,8 @@ function handle(context) {
         console.log("parsed pod info");
         //let repo = ps_info.info.config.labels["info.coredumps.repo"]
         console.log(pod_info)
-        prconfig.repo = pod_info.labels["code_repo"];
-        prconfig.owner = pod_info.labels["codeowner"];
+        prconfig.repo = pod_info.labels["info.coredump.repo"];
+        prconfig.owner = pod_info.labels["info.coredump.owner"];
         prconfig.zipfile = filename;
         console.log("finished prconfig for pod");
         
