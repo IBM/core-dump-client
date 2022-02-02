@@ -3,6 +3,9 @@
 const { start } = require('faas-js-runtime');
 const request = require('supertest');
 
+let fs = require('fs');
+const cosevent = fs.readFileSync('./body.json');
+
 const func = require('..').handle;
 const test = require('tape');
 
@@ -27,50 +30,18 @@ test('Integration: handles an HTTP GET', t => {
   }, errHandler(t));
 });
 
-// IGNORING FOR NOW
+// this will work but ignoring for now
 // test('Integration: handles an HTTP POST', t => {
 //   start(func).then(server => {
 //     t.plan(2);
 //     request(server)
 //       .post('/')
-//       .send({  
-//         bucket: "core-storage",  
-//         endpoint: "",  
-//         key: "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip",  
-//         notification: {  
-//           bucket_name: "core-storage",  
-//           content_type: "application/octet-stream",  
-//           event_type: "Object:Write",  
-//           format: "2.0",  
-//           object_etag: "f68a47ca5da37992f024695d1fdf38fb",  
-//           object_length: "28336",  
-//           object_name: "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip",  
-//           request_id: "8a1186ad-c2fe-4830-b98f-c302d7caca0a",  
-//           request_time: "2022-01-31T19:32:59.395Z"  
-//         },  
-//         operation: "Object:Write"  
-//       })
+//       .send(cosevent)
 //       .expect(200)
 //       .expect('Content-Type', /json/)
 //       .end((err, res) => {
 //         t.error(err, 'No error');
-//         t.deepEqual(res.body, {  
-//           bucket: "core-storage",  
-//           endpoint: "",  
-//           key: "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip",  
-//           notification: {  
-//             bucket_name: "core-storage",  
-//             content_type: "application/octet-stream",  
-//             event_type: "Object:Write",  
-//             format: "2.0",  
-//             object_etag: "f68a47ca5da37992f024695d1fdf38fb",  
-//             object_length: "28336",  
-//             object_name: "3927906d-5b6d-4ff8-8a61-937bcada155b-dump-1643657577-segfaulter-segfaulter-1-4.zip",  
-//             request_id: "8a1186ad-c2fe-4830-b98f-c302d7caca0a",  
-//             request_time: "2022-01-31T19:32:59.395Z"  
-//           },  
-//           operation: "Object:Write"  
-//         });
+//         t.deepEqual(res.body, cosevent);
 //         t.end();
 //         server.close();
 //       });
