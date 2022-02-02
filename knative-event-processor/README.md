@@ -2,8 +2,44 @@
 
 This is a **proof of concept** to demonstrate how a core dump can be integrated into a [gitops](https://docs.openshift.com/constainer-platform/4.7/cicd/gitops/understanding-openshift-gitops.html) workflow. It uses an event raised when a core dump is generated in a cloud object store to create a [gitpod.io](https://www.gitpod.io/) container definition that integrates the `default` container in the root of the `core-dump-client` project to a pull request on a repo.
 
+This project is very likely to change significantly as investigation continues.
+
+
+## Deployment
+
+Currently this project is designed to be used with code engine but that will be generalised to work with any container system in the future.
+
+On code engine create a build that points to this project folder.
+https://cloud.ibm.com/docs/codeengine?topic=codeengine-build-app-tutorial
+
+Create an appliction based on the build with the following environment variables set.
+```
+S3_ACCESS_KEY=
+S3_SECRET=
+S3_REGION=
+S3_ENDPOINT=
+GIT_TOKEN=
+```
+Generate a core dump 
+
+```console
+kubectl run -i -t segfaulter --image=quay.io/icdh/segfaulter --restart=Never -l info.coredump.owner=no9,info.coredump.repo=segfaulter
+```
+
+
 
 ## Local execution
+
+Create an .env file at the same level as this README.md with the following entries filled with the same configuration you used for the core-dump-handler service and a github token [generated here](https://github.com/settings/tokens/new?scopes=repo)
+
+```
+S3_ACCESS_KEY=
+S3_SECRET=
+S3_REGION=
+S3_ENDPOINT=
+GIT_TOKEN=
+
+```
 
 After executing `npm install`, you can run this function locally by executing `npm run local`.
 
